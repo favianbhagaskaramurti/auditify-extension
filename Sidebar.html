@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-glass: rgba(255, 255, 255, 0.03);
+      --accent-primary: #6c5ce7;
+      --accent-secondary: #a29bfe;
+      --accent-glow: rgba(108, 92, 231, 0.35);
+      --text-primary: #f1f1f7;
+      --text-secondary: #8b8b9e;
+      --text-muted: #5a5a6e;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(108, 92, 231, 0.3);
+      --severity-critical: #ff6b6b;
+      --severity-high: #ffa502;
+      --severity-medium: #ffd43b;
+      --severity-low: #51cf66;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    html {
+      background: var(--bg-primary);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Login Screen */
+    .login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 32px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.05) 0%, rgba(162, 155, 254, 0.05) 100%);
+    }
+
+    .login-logo {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .login-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .login-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .btn-login {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 16px var(--accent-glow);
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .login-features {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .login-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: left;
+    }
+
+    .login-feature-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(108, 92, 231, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+    }
+
+    /* Main App */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      min-height: 100%;
+    }
+
+    .app-header {
+      flex-shrink: 0;
+      padding: 14px 16px 12px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .app-logo-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .app-brand-text {
+      min-width: 0;
+    }
+
+    .app-brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .app-brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .app-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .app-user-avatar {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .app-user-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .app-user-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .app-user-email {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+
+    .app-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px 16px 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .app-actions {
+      flex-shrink: 0;
+      padding: 12px 16px 16px;
+      background: linear-gradient(to top, var(--bg-primary) 70%, transparent);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .config-section {
+      margin-bottom: 18px;
+    }
+
+    .config-section:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .config-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .config-pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .config-pill {
+      padding: 10px 12px;
+      text-align: center;
+      border-radius: var(--radius-full);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .config-pill:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .config-pill.active {
+      background: rgba(108, 92, 231, 0.15);
+      border-color: var(--accent-primary);
+      color: var(--accent-secondary);
+    }
+
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checkbox-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .checkbox-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-accent);
+    }
+
+    .checkbox-option input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      accent-color: var(--accent-primary);
+      cursor: pointer;
+    }
+
+    .checkbox-option label {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .checkbox-option--subtle label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .btn-audit {
+      width: 100%;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .btn-audit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn-audit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 11px 16px;
+      margin-top: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255, 107, 107, 0.45);
+      background: rgba(255, 107, 107, 0.08);
+      color: #ffb4b4;
+    }
+
+    .loading-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-subtle);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .results-container {
+      padding: 20px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      margin-top: 20px;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .results-score {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .results-grade {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(108, 92, 231, 0.15);
+      color: var(--accent-secondary);
+    }
+
+    .results-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .issue-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .issue-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .issue-code {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .severity-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .severity-critical {
+      background: rgba(255, 107, 107, 0.15);
+      color: var(--severity-critical);
+    }
+
+    .severity-high {
+      background: rgba(255, 165, 2, 0.15);
+      color: var(--severity-high);
+    }
+
+    .severity-medium {
+      background: rgba(255, 212, 59, 0.15);
+      color: var(--severity-medium);
+    }
+
+    .severity-low {
+      background: rgba(81, 207, 102, 0.15);
+      color: var(--severity-low);
+    }
+
+    .issue-description {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .error-message {
+      padding: 16px;
+      background: rgba(255, 107, 107, 0.1);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: var(--radius-md);
+      color: var(--severity-critical);
+      font-size: 13px;
+      margin-top: 16px;
+    }
+
+    .module-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    .module-tab {
+      padding: 8px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.2;
+    }
+
+    .module-tab:hover {
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .module-tab.active {
+      color: var(--accent-secondary);
+      background: rgba(108, 92, 231, 0.15);
+      border-color: var(--border-accent);
+    }
+
+    .module-panel {
+      display: block;
+    }
+
+    .module-panel.hidden {
+      display: none !important;
+    }
+
+    .module-intro {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .metric-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--severity-medium);
+    }
+
+    .drift-item, .graph-node, .chat-bubble {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .drift-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .drift-status {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .drift-status.aligned { background: rgba(81, 207, 102, 0.15); color: var(--severity-low); }
+    .drift-status.slight { background: rgba(255, 212, 59, 0.15); color: var(--severity-medium); }
+    .drift-status.critical { background: rgba(255, 107, 107, 0.15); color: var(--severity-critical); }
+
+    .graph-node-type {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .graph-node-type.main { color: var(--severity-low); }
+    .graph-node-type.supporting { color: var(--severity-medium); }
+    .graph-node-type.weak { color: var(--severity-critical); }
+
+    .graph-link {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      border-left: 2px solid var(--accent-primary);
+    }
+
+    .defense-config {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .defense-config select {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 13px;
+    }
+
+    .defense-chat {
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      padding-right: 4px;
+    }
+
+    .chat-bubble.opponent {
+      border-color: var(--border-accent);
+    }
+
+    .chat-bubble.user {
+      border-color: rgba(108, 92, 231, 0.5);
+      margin-left: 12px;
+    }
+
+    .chat-role {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .chat-content {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .defense-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .defense-input-row input {
+      flex: 1;
+      padding: 10px 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 13px;
+    }
+
+    .btn-small {
+      padding: 10px 14px;
+      background: rgba(108, 92, 231, 0.2);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      color: var(--accent-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 24px 16px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Accordion Styles */
+    .accordion-item {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .accordion-item.active {
+      border-color: var(--border-accent);
+      background: rgba(108, 92, 231, 0.05);
+    }
+
+    .accordion-header {
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .accordion-header:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .accordion-header-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .accordion-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      color: var(--text-muted);
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+      color: var(--accent-primary);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .accordion-item.active .accordion-body {
+      max-height: 600px;
+      overflow-y: auto;
+      transition: max-height 0.5s ease-in;
+    }
+
+    .accordion-content {
+      padding: 0 12px 12px 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .accordion-loading {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+    }
+
+    .node-detail-section {
+      margin-bottom: 16px;
+    }
+
+    .node-detail-section h4 {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .node-detail-section p, .node-detail-section ul {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .node-detail-section ul {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+
+    .node-detail-section li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-logo">A</div>
+    <h1 class="login-title">Auditify</h1>
+    <p class="login-subtitle">
+      Audit your academic documents with AI-powered analysis
+    </p>
+    <button class="btn-login" onclick="handleLogin()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+        <polyline points="10 17 15 12 10 7"></polyline>
+        <line x1="15" y1="12" x2="3" y2="12"></line>
+      </svg>
+      Login to Continue
+    </button>
+    <div class="login-features">
+      <div class="login-feature">
+        <div class="login-feature-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <span>Detect logical fallacies automatically</span>
+      </div>
+      <div class="login-feature">
+        <div class="login-feature-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 16v-4"></path>
+            <path d="M12 8h.01"></path>
+          </svg>
+        </div>
+        <span>Analyze semantic drift</span>
+      </div>
+      <div class="login-feature">
+        <div class="login-feature-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+        </div>
+        <span>Get instant improvement suggestions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="mainApp" class="app-container hidden">
+    <header class="app-header">
+      <div class="app-brand">
+        <div class="app-logo-icon">A</div>
+        <div class="app-brand-text">
+          <div class="app-brand-title">Auditify</div>
+          <div class="app-brand-subtitle">Academic integrity audit</div>
+        </div>
+      </div>
+      <div class="app-user">
+        <div class="app-user-avatar" id="userAvatar">?</div>
+        <div class="app-user-info">
+          <div class="app-user-label">Signed in</div>
+          <span class="app-user-email" id="userEmail" title="">Loading...</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="module-tabs" id="moduleTabs">
+      <button type="button" class="module-tab active" data-module="scanner" onclick="switchModule('scanner')">Scanner</button>
+      <button type="button" class="module-tab" data-module="drift" onclick="switchModule('drift')">Drift</button>
+      <button type="button" class="module-tab" data-module="defense" onclick="switchModule('defense')">Defense</button>
+      <button type="button" class="module-tab" data-module="graph" onclick="switchModule('graph')">Graph</button>
+    </nav>
+
+    <div class="app-content">
+      <div id="panelScanner" class="module-panel">
+      <div class="config-section">
+        <div class="config-label">Academic Level</div>
+        <div class="config-pills">
+          <div class="config-pill" data-level="SMP" onclick="selectLevel('SMP')">SMP</div>
+          <div class="config-pill active" data-level="SMA" onclick="selectLevel('SMA')">SMA</div>
+          <div class="config-pill" data-level="Universitas" onclick="selectLevel('Universitas')">Universitas</div>
+          <div class="config-pill" data-level="Pascasarjana" onclick="selectLevel('Pascasarjana')">Pascasarjana</div>
+        </div>
+      </div>
+
+      <div class="config-section">
+        <div class="config-label">Focus Areas</div>
+        <div class="checkbox-list">
+        <div class="checkbox-option">
+          <input type="checkbox" id="focusLogic" checked>
+          <label for="focusLogic">Kekuatan Logika</label>
+        </div>
+        <div class="checkbox-option">
+          <input type="checkbox" id="focusFact" checked>
+          <label for="focusFact">Kebenaran Fakta</label>
+        </div>
+        <div class="checkbox-option">
+          <input type="checkbox" id="focusSentiment" checked>
+          <label for="focusSentiment">Netralitas Sentimen</label>
+        </div>
+        <div class="checkbox-option checkbox-option--subtle">
+          <input type="checkbox" id="includeReferences">
+          <label for="includeReferences">Sertakan folder Drive sebagai referensi</label>
+        </div>
+        </div>
+      </div>
+
+      <div id="resultsContainer" class="hidden"></div>
+      <div id="errorContainer" class="hidden"></div>
+      </div>
+
+      <div id="panelDrift" class="module-panel hidden">
+        <p class="module-intro">Lacak penyimpangan makna argumen paragraf demi paragraf dari premis awal dokumen.</p>
+        <div id="driftResults"></div>
+      </div>
+
+      <div id="panelDefense" class="module-panel hidden">
+        <p class="module-intro">Simulasi debat akademik — AI menantang argumen Anda berdasarkan isi dokumen.</p>
+        <div class="defense-config">
+          <select id="opponentProfile">
+            <option value="Pakar Akademik">Pakar Akademik (Jutek)</option>
+            <option value="Penguji Doktoral">Penguji Doktoral (Jutek)</option>
+            <option value="Teman Kritis">Teman Kritis (Santai)</option>
+          </select>
+          <label class="checkbox-option" style="margin:0">
+            <input type="checkbox" id="stressTestMode">
+            <span style="font-size:12px;color:var(--text-secondary)">Stress-Test Mode</span>
+          </label>
+        </div>
+        <div class="defense-chat" id="defenseChat"></div>
+        <div class="defense-input-row hidden" id="defenseInputRow">
+          <input type="text" id="defenseInput" placeholder="Balas argumen penguji..." onkeydown="if(event.key==='Enter')sendDefenseMessage()">
+          <button type="button" class="btn-small" onclick="sendDefenseMessage()">Kirim</button>
+        </div>
+      </div>
+
+      <div id="panelGraph" class="module-panel hidden">
+        <p class="module-intro">Peta dependensi premis dan klaim — hubungan mendukung atau bertentangan.</p>
+        <div id="graphResults"></div>
+      </div>
+
+      <div id="moduleErrorContainer" class="hidden"></div>
+    </div>
+
+    <footer class="app-actions">
+      <button class="btn-audit" onclick="runModuleAction()" id="primaryActionBtn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span id="primaryActionLabel">Audit Document</span>
+      </button>
+      <button class="btn-secondary" onclick="handleLogout()" type="button">
+        Logout
+      </button>
+    </footer>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let selectedLevel = 'SMA';
+    let activeModule = 'scanner';
+    let defenseMessages = [];
+    let scriptTimeoutId = null;
+    let graphData = null; // Store graph data for node detail fetching
+    let activeAccordionId = null; // Track active accordion
+    let nodeDetailsCache = {}; // Cache node details
+    var SCRIPT_TIMEOUT_MS = 90000;
+
+    function clearScriptTimeout() {
+      if (scriptTimeoutId) {
+        clearTimeout(scriptTimeoutId);
+        scriptTimeoutId = null;
+      }
+    }
+
+    function startScriptTimeout() {
+      clearScriptTimeout();
+      scriptTimeoutId = setTimeout(function() {
+        scriptTimeoutId = null;
+        setPrimaryLoading(false);
+        showModuleError(
+          'Waktu habis (90 detik). Dokumen terlalu panjang atau server sibuk — coba lagi dengan teks lebih pendek.'
+        );
+      }, SCRIPT_TIMEOUT_MS);
+    }
+
+    function finishScriptCall() {
+      clearScriptTimeout();
+      setPrimaryLoading(false);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderMarkdown(text) {
+      if (!text) return '';
+      
+      // Escape HTML first
+      var html = escapeHtml(text);
+      
+      // Bold: **text** or __text__
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+      
+      // Italic: *text* or _text_
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+      
+      // Citations: [1], [2], etc.
+      html = html.replace(/\[(\d+)\]/g, '<sup style="color:var(--accent-primary);font-weight:600">[$1]</sup>');
+      
+      // Code: `code`
+      html = html.replace(/`(.+?)`/g, '<code style="background:rgba(108,92,231,0.1);padding:2px 6px;border-radius:4px;font-size:11px;color:var(--accent-secondary)">$1</code>');
+      
+      // Line breaks
+      html = html.replace(/\n/g, '<br>');
+      
+      return html;
+    }
+
+    function switchModule(module) {
+      activeModule = module;
+      document.querySelectorAll('.module-tab').forEach(function(tab) {
+        tab.classList.toggle('active', tab.getAttribute('data-module') === module);
+      });
+      document.getElementById('panelScanner').classList.toggle('hidden', module !== 'scanner');
+      document.getElementById('panelDrift').classList.toggle('hidden', module !== 'drift');
+      document.getElementById('panelDefense').classList.toggle('hidden', module !== 'defense');
+      document.getElementById('panelGraph').classList.toggle('hidden', module !== 'graph');
+      var labels = {
+        scanner: 'Audit Document',
+        drift: 'Analisis Drift',
+        defense: 'Mulai Simulasi',
+        graph: 'Buat Graf'
+      };
+      document.getElementById('primaryActionLabel').textContent = labels[module] || 'Jalankan';
+      document.getElementById('primaryActionBtn').classList.remove('hidden');
+      if (module !== 'defense' || defenseMessages.length === 0) {
+        document.getElementById('defenseInputRow').classList.add('hidden');
+      }
+      hideModuleError();
+    }
+
+    function runModuleAction() {
+      if (activeModule === 'scanner') handleAudit();
+      else if (activeModule === 'drift') handleDrift();
+      else if (activeModule === 'defense') startDefense();
+      else if (activeModule === 'graph') handleGraph();
+    }
+
+    function setPrimaryLoading(loading, label) {
+      var btn = document.getElementById('primaryActionBtn');
+      btn.disabled = loading;
+      if (loading) {
+        btn.innerHTML = '<div class="loading-spinner"></div> ' + (label || 'Memproses...');
+      } else {
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><span id="primaryActionLabel">' + escapeHtml(
+          { scanner: 'Audit Document', drift: 'Analisis Drift', defense: 'Mulai Simulasi', graph: 'Buat Graf' }[activeModule]
+        ) + '</span>';
+      }
+    }
+
+    function hideModuleError() {
+      document.getElementById('moduleErrorContainer').classList.add('hidden');
+      document.getElementById('moduleErrorContainer').innerHTML = '';
+    }
+
+    function showModuleError(msg) {
+      var el = document.getElementById('moduleErrorContainer');
+      el.innerHTML = '<div class="error-message">' + escapeHtml(msg) + '</div>';
+      el.classList.remove('hidden');
+    }
+
+    // Check login status on load
+    window.onload = function() {
+      google.script.run
+        .withSuccessHandler(handleLoginStatus)
+        .withFailureHandler(showError)
+        .isLoggedIn();
+    };
+
+    function handleLoginStatus(result) {
+      if (result.success && result.isLoggedIn) {
+        currentUser = { email: result.email };
+        showMainApp();
+      } else {
+        showLoginScreen();
+      }
+    }
+
+    function handleLogin() {
+      // Open login popup
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.success) {
+            // Poll for login completion
+            checkLoginStatus();
+          }
+        })
+        .withFailureHandler(showError)
+        .openLoginPopup();
+    }
+
+    function checkLoginStatus() {
+      const interval = setInterval(function() {
+        google.script.run
+          .withSuccessHandler(function(result) {
+            if (result.success && result.isLoggedIn) {
+              clearInterval(interval);
+              currentUser = { email: result.email };
+              showMainApp();
+            }
+          })
+          .pollAddonOAuth();
+      }, 2000); // Check every 2 seconds
+
+      // Stop checking after 5 minutes
+      setTimeout(function() {
+        clearInterval(interval);
+      }, 300000);
+    }
+
+    function showLoginScreen() {
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('mainApp').classList.add('hidden');
+    }
+
+    function showMainApp() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('mainApp').classList.remove('hidden');
+      
+      if (currentUser && currentUser.email) {
+        const emailEl = document.getElementById('userEmail');
+        emailEl.textContent = currentUser.email;
+        emailEl.title = currentUser.email;
+        document.getElementById('userAvatar').textContent = currentUser.email.charAt(0).toUpperCase();
+      }
+    }
+
+    function selectLevel(level) {
+      selectedLevel = level;
+      document.querySelectorAll('.config-pill[data-level]').forEach(pill => {
+        pill.classList.remove('active');
+      });
+      document.querySelector(`.config-pill[data-level="${level}"]`).classList.add('active');
+    }
+
+
+    function handleDrift() {
+      setPrimaryLoading(true, "Menganalisis drift...");
+      hideModuleError();
+      document.getElementById("driftResults").innerHTML = "";
+      startScriptTimeout();
+      google.script.run
+        .withSuccessHandler(function(result) {
+          finishScriptCall();
+          if (!result) {
+            showModuleError("Tidak ada respons dari server.");
+            return;
+          }
+          if (result.success && result.data) displayDriftResults(result.data);
+          else showModuleError(result.error || "Analisis drift gagal");
+        })
+        .withFailureHandler(function(err) {
+          finishScriptCall();
+          showModuleError(String(err));
+        })
+        .runSemanticDrift();
+    }
+
+    function displayDriftResults(data) {
+      var html = '';
+      
+      // Drift Score Card
+      html += '<div class="metric-card"><div><div class="metric-label">Drift Score</div></div><div class="metric-value">' + (data.overallDriftScore || 0) + '%</div></div>';
+      
+      // Baseline (Goal)
+      if (data.baseline) {
+        html += '<div style="margin-bottom:14px;padding:12px;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-md)">';
+        html += '<div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">BASELINE</div>';
+        html += '<div style="font-size:12px;color:var(--text-secondary);line-height:1.5">' + escapeHtml(data.baseline) + '</div>';
+        html += '</div>';
+      }
+      
+      // Structural Feedback
+      if (data.structuralFeedback) {
+        html += '<div style="margin-bottom:14px;padding:12px;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-md)">';
+        html += '<div style="font-size:12px;color:var(--text-secondary);line-height:1.5">' + escapeHtml(data.structuralFeedback) + '</div>';
+        html += '</div>';
+      }
+      
+      // Paragraphs
+      (data.paragraphs || []).forEach(function(p) {
+        var alignment = p.alignment || 0;
+        var statusClass = alignment >= 85 ? 'aligned' : alignment >= 50 ? 'slight' : 'critical';
+        var statusText = alignment >= 85 ? 'ALIGNED' : alignment >= 50 ? 'SLIGHT DRIFT' : 'CRITICAL DRIFT';
+        
+        html += '<div class="drift-item">';
+        html += '<div class="drift-item-header">';
+        html += '<span style="font-size:12px;font-weight:600;color:var(--text-primary)">P' + p.id + '</span>';
+        html += '<span class="drift-status ' + statusClass + '">' + statusText + '</span>';
+        html += '</div>';
+        html += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:6px">Alignment: ' + alignment + '%</div>';
+        if (p.text) {
+          html += '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;line-height:1.4">' + escapeHtml(p.text) + '</div>';
+        }
+        if (p.feedback) {
+          html += '<div style="font-size:11px;color:var(--text-muted);line-height:1.4;padding-top:6px;border-top:1px solid var(--border-subtle)">' + escapeHtml(p.feedback) + '</div>';
+        }
+        html += '</div>';
+      });
+      
+      document.getElementById('driftResults').innerHTML = html || '<div class="empty-state">Tidak ada data.</div>';
+    }
+
+    function handleGraph() {
+      setPrimaryLoading(true, "Membangun graf...");
+      hideModuleError();
+      document.getElementById("graphResults").innerHTML = "";
+      startScriptTimeout();
+      google.script.run
+        .withSuccessHandler(function(result) {
+          finishScriptCall();
+          if (!result) {
+            showModuleError("Tidak ada respons dari server.");
+            return;
+          }
+          if (result.success && result.data) displayGraphResults(result.data);
+          else showModuleError(result.error || "Graf gagal dibuat");
+        })
+        .withFailureHandler(function(err) {
+          finishScriptCall();
+          showModuleError(String(err));
+        })
+        .runDependencyGraph();
+    }
+
+    function displayGraphResults(data) {
+      graphData = data; // Store for later use
+      nodeDetailsCache = {}; // Clear cache
+      activeAccordionId = null; // Reset active accordion
+      
+      var html = '';
+      
+      // Description
+      if (data.description) {
+        html += '<div style="margin-bottom:14px;padding:12px;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-md)">';
+        html += '<div style="font-size:12px;color:var(--text-secondary);line-height:1.5">' + escapeHtml(data.description) + '</div>';
+        html += '</div>';
+      }
+      
+      // Nodes as Accordion
+      (data.nodes || []).forEach(function(n, index) {
+        var typeClass = (n.type || '').toLowerCase();
+        var typeColor = typeClass === 'main' ? 'var(--severity-low)' : typeClass === 'supporting' ? 'var(--severity-medium)' : 'var(--severity-critical)';
+        var nodeId = 'node-' + index;
+        
+        html += '<div class="accordion-item" id="' + nodeId + '">';
+        html += '<div class="accordion-header" onclick="toggleNodeAccordion(\'' + nodeId + '\', ' + index + ')">';
+        html += '<div class="accordion-header-content">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
+        html += '<span class="graph-node-type ' + typeClass + '" style="color:' + typeColor + '">' + escapeHtml(n.type || 'NODE') + '</span>';
+        html += '</div>';
+        html += '<div style="font-size:13px;font-weight:600;color:var(--text-primary)">' + escapeHtml(n.label) + '</div>';
+        if (n.description) {
+          html += '<div style="font-size:11px;color:var(--text-muted);line-height:1.4;margin-top:4px">' + escapeHtml(n.description) + '</div>';
+        }
+        html += '</div>';
+        html += '<svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+        html += '</div>';
+        html += '<div class="accordion-body"><div class="accordion-content" id="' + nodeId + '-content"></div></div>';
+        html += '</div>';
+      });
+      
+      // Links
+      if (data.links && data.links.length > 0) {
+        html += '<div style="margin-top:14px;padding:12px;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-md)">';
+        html += '<div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">CONNECTIONS</div>';
+        (data.links || []).forEach(function(l) {
+          html += '<div class="graph-link">' + escapeHtml(l.source) + ' &rarr; ' + escapeHtml(l.target);
+          if (l.label) html += ' <span style="color:var(--text-muted)">(' + escapeHtml(l.label) + ')</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      
+      document.getElementById('graphResults').innerHTML = html || '<div class="empty-state">Tidak ada node.</div>';
+    }
+
+    function toggleNodeAccordion(nodeId, nodeIndex) {
+      var item = document.getElementById(nodeId);
+      var wasActive = item.classList.contains('active');
+      
+      // Close all accordions
+      document.querySelectorAll('.accordion-item').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      
+      // If clicking the same item, just close it
+      if (wasActive) {
+        activeAccordionId = null;
+        return;
+      }
+      
+      // Open clicked accordion
+      item.classList.add('active');
+      activeAccordionId = nodeId;
+      
+      // Load node details
+      loadNodeDetails(nodeId, nodeIndex);
+    }
+
+    function loadNodeDetails(nodeId, nodeIndex) {
+      var contentEl = document.getElementById(nodeId + '-content');
+      
+      // Check cache first
+      if (nodeDetailsCache[nodeId]) {
+        contentEl.innerHTML = nodeDetailsCache[nodeId];
+        return;
+      }
+      
+      // Show loading
+      contentEl.innerHTML = '<div class="accordion-loading"><div class="loading-spinner" style="margin:0 auto"></div><div style="margin-top:8px;font-size:11px">Memuat detail...</div></div>';
+      
+      // Get node data
+      var node = graphData.nodes[nodeIndex];
+      if (!node) {
+        contentEl.innerHTML = '<div class="accordion-loading" style="color:var(--severity-critical)">Node tidak ditemukan</div>';
+        return;
+      }
+      
+      // Get document text
+      google.script.run
+        .withSuccessHandler(function(textResult) {
+          if (!textResult.success) {
+            contentEl.innerHTML = '<div class="accordion-loading" style="color:var(--severity-critical)">Gagal membaca dokumen</div>';
+            return;
+          }
+          
+          // Call node detail API via Code.gs
+          fetchNodeDetail(nodeId, node.label, node.type, textResult.text, contentEl);
+        })
+        .withFailureHandler(function(err) {
+          contentEl.innerHTML = '<div class="accordion-loading" style="color:var(--severity-critical)">Error: ' + escapeHtml(String(err)) + '</div>';
+        })
+        .getDocumentText();
+    }
+
+    function fetchNodeDetail(nodeId, nodeName, nodeType, documentText, contentEl) {
+      // Call backend API through Code.gs helper
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (!result.success) {
+            contentEl.innerHTML = '<div class="accordion-loading" style="color:var(--severity-critical)">' + escapeHtml(result.error || 'Gagal memuat detail') + '</div>';
+            return;
+          }
+          
+          var data = result.data;
+          var html = renderNodeDetail(data);
+          
+          // Cache the result
+          nodeDetailsCache[nodeId] = html;
+          contentEl.innerHTML = html;
+        })
+        .withFailureHandler(function(err) {
+          contentEl.innerHTML = '<div class="accordion-loading" style="color:var(--severity-critical)">Error: ' + escapeHtml(String(err)) + '</div>';
+        })
+        .callAuditifyApi('/dependency/node-detail', {
+          nodeName: nodeName,
+          nodeType: nodeType,
+          documentText: documentText
+        });
+    }
+
+    function renderNodeDetail(data) {
+      var html = '';
+      
+      // Parse markdown-like analysis
+      var analysis = data.analysis || '';
+      var sections = analysis.split('##').filter(function(s) { return s.trim(); });
+      
+      sections.forEach(function(section) {
+        var lines = section.trim().split('\n');
+        var title = lines[0].trim();
+        var content = lines.slice(1).join('\n').trim();
+        
+        html += '<div class="node-detail-section">';
+        html += '<h4>' + escapeHtml(title) + '</h4>';
+        
+        // Convert markdown lists to HTML
+        if (content.includes('\n- ') || content.startsWith('- ')) {
+          var parts = content.split('\n');
+          var listItems = [];
+          var currentParagraph = '';
+          
+          parts.forEach(function(line) {
+            if (line.trim().startsWith('- ')) {
+              if (currentParagraph) {
+                html += '<p>' + renderMarkdown(currentParagraph) + '</p>';
+                currentParagraph = '';
+              }
+              listItems.push(line.trim().substring(2));
+            } else if (line.trim()) {
+              if (listItems.length > 0) {
+                html += '<ul>';
+                listItems.forEach(function(item) {
+                  html += '<li>' + renderMarkdown(item) + '</li>';
+                });
+                html += '</ul>';
+                listItems = [];
+              }
+              currentParagraph += (currentParagraph ? '\n' : '') + line;
+            }
+          });
+          
+          // Flush remaining
+          if (currentParagraph) {
+            html += '<p>' + renderMarkdown(currentParagraph) + '</p>';
+          }
+          if (listItems.length > 0) {
+            html += '<ul>';
+            listItems.forEach(function(item) {
+              html += '<li>' + renderMarkdown(item) + '</li>';
+            });
+            html += '</ul>';
+          }
+        } else {
+          // Regular paragraph with markdown
+          html += '<p>' + renderMarkdown(content) + '</p>';
+        }
+        
+        html += '</div>';
+      });
+      
+      // Citations
+      if (data.citations && data.citations.length > 0) {
+        html += '<div class="node-detail-section">';
+        html += '<h4>Referensi</h4>';
+        html += '<ul>';
+        data.citations.forEach(function(citation, idx) {
+          var title = citation.title || 'Untitled';
+          var authors = citation.authors ? ' - ' + citation.authors : '';
+          var year = citation.year ? ' (' + citation.year + ')' : '';
+          html += '<li style="font-size:11px"><sup style="color:var(--accent-primary);font-weight:600">[' + (idx + 1) + ']</sup> ' + escapeHtml(title + authors + year) + '</li>';
+        });
+        html += '</ul>';
+        html += '</div>';
+      }
+      
+      return html || '<div class="accordion-loading" style="color:var(--text-muted)">Tidak ada detail tersedia</div>';
+    }
+
+    function getDefenseOptions() {
+      return {
+        opponentProfile: document.getElementById("opponentProfile").value,
+        stressTestMode: document.getElementById("stressTestMode").checked
+      };
+    }
+
+    function renderDefenseChat() {
+      var html = "";
+      defenseMessages.forEach(function(msg) {
+        var isUser = msg.role === "user";
+        html += '<div class="chat-bubble ' + (isUser ? "user" : "opponent") + '"><div class="chat-role">' + (isUser ? "Anda" : "Penguji") + '</div><div class="chat-content">' + escapeHtml(msg.content) + "</div></div>";
+      });
+      var chat = document.getElementById("defenseChat");
+      chat.innerHTML = html;
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function startDefense() {
+      if (defenseMessages.length > 0) return;
+      setPrimaryLoading(true, "Memulai simulasi...");
+      hideModuleError();
+      startScriptTimeout();
+      google.script.run
+        .withSuccessHandler(function(result) {
+          finishScriptCall();
+          if (result.success && result.data && result.data.reply) {
+            defenseMessages = [{ role: "model", content: result.data.reply }];
+            renderDefenseChat();
+            document.getElementById("defenseInputRow").classList.remove("hidden");
+            document.getElementById("primaryActionBtn").classList.add("hidden");
+          } else showModuleError(result.error || "Gagal memulai simulasi");
+        })
+        .withFailureHandler(function(err) {
+          finishScriptCall();
+          showModuleError(String(err));
+        })
+        .runDefenseArena(getDefenseOptions(), []);
+    }
+
+    function sendDefenseMessage() {
+      var input = document.getElementById("defenseInput");
+      var text = (input.value || "").trim();
+      if (!text) return;
+      defenseMessages.push({ role: "user", content: text });
+      input.value = "";
+      renderDefenseChat();
+      input.disabled = true;
+      google.script.run
+        .withSuccessHandler(function(result) {
+          input.disabled = false;
+          if (result.success && result.data && result.data.reply) {
+            defenseMessages.push({ role: "model", content: result.data.reply });
+            renderDefenseChat();
+          } else showModuleError(result.error || "Gagal mengirim");
+        })
+        .withFailureHandler(function(err) { input.disabled = false; showModuleError(String(err)); })
+        .runDefenseArena(getDefenseOptions(), defenseMessages);
+    }
+
+    function handleAudit() {
+      setPrimaryLoading(true, 'Menganalisis...');
+
+      const focusAreas = [];
+      if (document.getElementById('focusLogic').checked) focusAreas.push('logic');
+      if (document.getElementById('focusFact').checked) focusAreas.push('fact');
+      if (document.getElementById('focusSentiment').checked) focusAreas.push('sentiment');
+
+      const includeReferences = document.getElementById('includeReferences').checked;
+
+      google.script.run
+        .withSuccessHandler(handleAuditSuccess)
+        .withFailureHandler(handleAuditError)
+        .auditCurrentDocument({
+          academicLevel: selectedLevel,
+          focusAreas: focusAreas
+        }, includeReferences);
+    }
+
+    function handleAuditSuccess(result) {
+      setPrimaryLoading(false);
+      if (result.success && result.data) {
+        displayResults(result.data);
+      } else {
+        showError(result.error || 'Audit failed');
+      }
+    }
+
+    function handleAuditError(error) {
+      setPrimaryLoading(false);
+      showError(error);
+    }
+
+    function displayResults(data) {
+      const container = document.getElementById('resultsContainer');
+      const audit = data.audit_results;
+
+      let html = `
+        <div class="results-container">
+          <div class="results-header">
+            <div class="results-score">${audit.score}/100</div>
+            <div class="results-grade">${audit.grade}</div>
+          </div>
+          <div class="results-summary">${audit.summary}</div>
+      `;
+
+      if (audit.issues && audit.issues.length > 0) {
+        audit.issues.forEach(issue => {
+          html += `
+            <div class="issue-card">
+              <div class="issue-header">
+                <div class="issue-code">${issue.code}</div>
+                <div class="severity-badge severity-${issue.severity.toLowerCase()}">${issue.severity}</div>
+              </div>
+              <div class="issue-description">${issue.description}</div>
+            </div>
+          `;
+        });
+      }
+
+      html += '</div>';
+      container.innerHTML = html;
+      container.classList.remove('hidden');
+    }
+
+    function showError(error) {
+      const container = document.getElementById('errorContainer');
+      container.innerHTML = `<div class="error-message">${error}</div>`;
+      container.classList.remove('hidden');
+      
+      setTimeout(() => {
+        container.classList.add('hidden');
+      }, 5000);
+    }
+
+    function handleLogout() {
+      google.script.run
+        .withSuccessHandler(function() {
+          currentUser = null;
+          defenseMessages = [];
+          document.getElementById('defenseChat').innerHTML = '';
+          document.getElementById('defenseInputRow').classList.add('hidden');
+          document.getElementById('primaryActionBtn').classList.remove('hidden');
+          switchModule('scanner');
+          showLoginScreen();
+        })
+        .logout();
+    }
+  </script>
+</body>
+</html>
