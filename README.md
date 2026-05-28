@@ -1,249 +1,190 @@
-# Auditify Google Workspace Add-on
+# Auditify Google Workspace Extension
 
-Audit your academic documents directly from Google Docs, Sheets, and Slides with Auditify's powerful AI-powered analysis.
+Audit dokumen akademik Anda langsung dari Google Docs dengan analisis AI yang powerful.
 
-## 🚀 Features
+---
 
-- **📝 Direct Integration**: Audit documents without leaving Google Workspace
-- **🎯 Smart Analysis**: Detect logical fallacies, weak arguments, and integrity issues
-- **🎨 Visual Highlighting**: Highlight issues directly in your document
-- **📊 Detailed Reports**: Get comprehensive audit reports with actionable insights
-- **⚙️ Customizable**: Configure academic level and focus areas
-- **🔒 Secure**: Your API key is stored securely in your Google account
+## 🚀 Cara Pakai (Step-by-Step)
 
-## 📦 Installation
+### Step 1: Install Extension
+1. Buka Google Docs
+2. Klik **Extensions** → **Apps Script**
+3. Copy semua file dari folder `extension/` ke Apps Script project Anda:
+   - `Code.gs`
+   - `Sidebar.html`
+   - `appsscript.json`
+4. Klik **Deploy** → **Test deployments** → **Install**
 
-### For Development
+### Step 2: Login ke Auditify
+1. Buka dokumen Google Docs
+2. Klik **Extensions** → **Auditify** → **Show Sidebar**
+3. Klik tombol **Settings** (⚙️)
+4. Klik **Open Login Page**
+5. Login dengan akun Auditify Anda (Google atau Email/Password)
+6. Setelah login, copy **Firebase ID Token** dari dashboard
+7. Paste token ke Settings dialog
+8. Klik **Save Token**
 
-1. **Open Google Apps Script**
-   - Go to [script.google.com](https://script.google.com)
-   - Click "New Project"
+### Step 3: Audit Dokumen
+1. Tulis atau buka dokumen Anda di Google Docs
+2. Buka sidebar Auditify
+3. Pilih **Academic Level** (SMP/SMA/Universitas/Pascasarjana)
+4. Pilih **Focus Areas** yang ingin dianalisis
+5. Klik **Audit Full Document** atau select text lalu klik **Audit Selected Text**
+6. Tunggu hasil analisis muncul
 
-2. **Copy Files**
-   - Copy the contents of `Code.gs` to the default `Code.gs` file
-   - Create new HTML files for `Sidebar.html` and `Settings.html`
-   - Copy `appsscript.json` content to your project's manifest
+### Step 4: Review Hasil
+Setelah audit selesai, Anda akan melihat:
+- **Integrity Score** (0-100)
+- **Grade** (Excellent/Good/Fair/Poor)
+- **Summary** singkat
+- **Detailed Issues** dengan severity level
 
-3. **Deploy**
-   - Click "Deploy" → "Test deployments"
-   - Select "Install" to test in your Google Workspace
+### Step 5: Highlight Issues (Opsional)
+1. Klik tombol **Highlight Issues** di hasil audit
+2. Issues akan di-highlight di dokumen dengan warna:
+   - 🔴 **Merah**: Critical (severity tinggi)
+   - 🟠 **Orange**: High priority
+   - 🟡 **Kuning**: Medium priority
+   - 🟢 **Hijau**: Low priority
 
-### For Production
+### Step 6: Insert Report (Opsional)
+1. Klik tombol **Insert Report**
+2. Laporan lengkap akan ditambahkan di akhir dokumen
+3. Laporan berisi semua findings dengan detail lengkap
 
-1. **Prepare for Publishing**
-   - Ensure all OAuth scopes are properly configured
-   - Add a logo (128x128 px) at `https://auditify.favianbhagaskara.my.id/logo.png`
-   - Complete the add-on configuration in `appsscript.json`
+---
 
-2. **Submit to Google Workspace Marketplace**
-   - Go to [Google Workspace Marketplace SDK](https://console.cloud.google.com/apis/api/appsmarket-component.googleapis.com)
-   - Follow the submission guidelines
-   - Complete the listing information
+## 🎯 Kemampuan Sistem
 
-## 🔧 Configuration
+### 1. **Audit Logical Fallacies**
+Mendeteksi kesalahan logika dalam argumen:
+- Ad Hominem (menyerang pribadi)
+- Straw Man (mengubah argumen lawan)
+- False Dilemma (pilihan palsu)
+- Slippery Slope (efek domino berlebihan)
+- Appeal to Authority (otoritas tidak relevan)
+- Hasty Generalization (generalisasi terburu-buru)
+- Red Herring (mengalihkan topik)
+- Circular Reasoning (argumen melingkar)
+- Dan 20+ fallacy lainnya
 
-### Login Setup
+**Output**: Lokasi fallacy, severity, penjelasan, dan saran perbaikan
 
-1. Open the add-on in Google Docs/Sheets/Slides
-2. Click "Settings"
-3. Click "Open Login Page" - this will open auditify.favianbhagaskara.my.id/auth in your browser
-4. Login with your Auditify account (email/password or Google)
-5. After login, copy your Firebase ID token from the dashboard
-6. Paste the token in the Settings dialog
-7. Click "Save Token"
+### 2. **Audit Weak Arguments**
+Menganalisis kekuatan argumen:
+- Argumen tanpa bukti
+- Bukti tidak relevan
+- Bukti lemah atau anekdotal
+- Klaim berlebihan (overgeneralization)
+- Asumsi tidak terverifikasi
+- Kontradiksi internal
 
-### Google Drive References (Optional)
+**Output**: Argumen lemah dengan severity, penjelasan, dan patch suggestion
 
-1. After logging in, go to Settings
-2. Click "Select Drive Folder"
-3. Enter the Google Drive folder ID (get from folder URL)
-4. Enter a name for the folder
-5. Click "Scan Folder" to preview documents
-6. When auditing, check "Include Drive folder as references" to use these documents as context
+### 3. **Pentest Questions**
+Menghasilkan pertanyaan kritis untuk menguji argumen:
+- Pertanyaan tentang asumsi tersembunyi
+- Pertanyaan tentang validitas bukti
+- Pertanyaan tentang alternatif argumen
+- Pertanyaan tentang implikasi logis
 
-### Academic Levels
+**Output**: 5-10 pertanyaan strategis untuk memperkuat argumen
 
-- **SMP**: Middle school level analysis
-- **SMA**: High school level analysis (default)
-- **Universitas**: University level analysis
-- **Pascasarjana**: Graduate level analysis
+### 4. **Academic Level Adaptation**
+Analisis disesuaikan dengan level akademik:
+- **SMP**: Analisis dasar, bahasa sederhana
+- **SMA**: Analisis menengah, pengenalan konsep akademik
+- **Universitas**: Analisis mendalam, standar akademik tinggi
+- **Pascasarjana**: Analisis expert-level, standar publikasi ilmiah
 
-### Focus Areas
+### 5. **Focus Areas**
+Pilih area fokus analisis:
+- **Kekuatan Logika**: Fokus pada struktur argumen dan reasoning
+- **Kebenaran Fakta**: Fokus pada akurasi dan verifikasi fakta
+- **Netralitas Sentimen**: Fokus pada bias dan objektivitas
 
-- **Kekuatan Logika**: Analyze logical strength and coherence
-- **Kebenaran Fakta**: Verify factual accuracy
-- **Netralitas Sentimen**: Check for bias and sentiment
+### 6. **Integrity Scoring**
+Sistem scoring komprehensif:
+- **90-100**: Excellent - Argumen sangat kuat
+- **75-89**: Good - Argumen solid dengan minor issues
+- **60-74**: Fair - Argumen cukup tapi perlu perbaikan
+- **0-59**: Poor - Argumen lemah, perlu revisi major
 
-## 📖 Usage
+### 7. **Real-time Highlighting**
+Highlight issues langsung di dokumen:
+- Color-coded berdasarkan severity
+- Preserve formatting dokumen
+- Bisa di-undo dengan Ctrl+Z
 
-### Audit Full Document
+### 8. **Comprehensive Reports**
+Generate laporan audit lengkap:
+- Executive summary
+- Detailed findings per kategori
+- Severity breakdown
+- Actionable recommendations
+- Timestamp dan metadata
 
-1. Open your Google Doc
-2. Click "Add-ons" → "Auditify" → "Audit Document"
-3. Configure your settings in the sidebar
-4. Click "Audit Full Document"
-5. Review the results
+---
 
-### Audit Selected Text
+## 🔐 Keamanan & Privasi
 
-1. Select the text you want to audit
-2. Open the Auditify sidebar
-3. Click "Audit Selected Text"
-4. Review the results for just that selection
+- ✅ Token disimpan aman di Google User Properties
+- ✅ Semua komunikasi via HTTPS
+- ✅ Tidak ada penyimpanan dokumen di server
+- ✅ Read-only access ke dokumen
+- ✅ OAuth scopes minimal yang diperlukan
 
-### Highlight Issues
+---
 
-After running an audit:
-1. Click "Highlight Issues" in the results
-2. Issues will be color-coded in your document:
-   - 🔴 **Red**: Critical issues
-   - 🟠 **Orange**: High priority issues
-   - 🟡 **Yellow**: Medium priority issues
-   - 🟢 **Green**: Low priority issues
+## 📊 Tier & Limits
 
-### Insert Audit Report
+### Free Tier
+- 2 audits per hari
+- Analisis basic
+- Deteksi fallacy terbatas
 
-1. After running an audit, click "Insert Report"
-2. A comprehensive audit report will be added to the end of your document
-3. The report includes:
-   - Integrity score and grade
-   - Summary of findings
-   - Detailed list of all issues
-   - Timestamp
+### Premium Tier
+- Unlimited audits
+- Analisis advanced
+- Full fallacy detection
+- Priority support
+- Detailed patch suggestions
 
-## 🔐 Security & Privacy
+[Upgrade ke Premium →](https://auditify-app-744909172024.us-central1.run.app/pricing)
 
-- **Token Storage**: Your Firebase ID token is stored securely in Google's user properties service
-- **Data Transmission**: All data is transmitted over HTTPS
-- **No Data Storage**: Auditify does not store your document content
-- **Drive Access**: Read-only access to selected folder only
-- **OAuth Scopes**: The add-on only requests necessary permissions:
-  - `documents.currentonly`: Access to the current document only
-  - `drive.readonly`: Read-only access to Drive for reference documents
-  - `script.container.ui`: Display the add-on interface
-  - `userinfo.email`: Identify your account for authentication
+---
 
 ## 🆘 Troubleshooting
 
 ### "Not logged in" Error
-
-**Solution**: Open Settings and login with your Auditify account. Copy the Firebase ID token from your dashboard after logging in.
+**Solusi**: Buka Settings → Login → Copy token dari dashboard → Paste di Settings
 
 ### "Token expired" Error
-
-**Solution**: Your Firebase ID token has expired. Open Settings, login again, and paste the new token.
+**Solusi**: Token Firebase expired setelah 1 jam. Login ulang dan paste token baru.
 
 ### "No text selected" Error
-
-**Solution**: Select some text in your document before clicking "Audit Selected Text".
+**Solusi**: Select text di dokumen sebelum klik "Audit Selected Text"
 
 ### API Connection Issues
+**Solusi**: 
+1. Cek koneksi internet
+2. Verify token masih valid
+3. Cek quota harian (Free: 2/day)
 
-**Solution**: 
-1. Check your internet connection
-2. Verify your API key is correct
-3. Ensure your Auditify account is active
-4. Check if you've exceeded your daily quota (Free tier: 2 audits/day)
-
-### Authorization Issues
-
-**Solution**:
-1. Remove the add-on authorization
-2. Reinstall the add-on
-3. Grant all requested permissions
-
-## 📊 Tier Limits
-
-### Free Tier
-- 2 audits per day
-- Basic analysis
-- Limited issue detection
-
-### Premium Tier
-- Unlimited audits
-- Advanced analysis
-- Full issue detection
-- Priority support
-- Detailed patch suggestions
-
-[Upgrade to Premium →](https://auditify.favianbhagaskara.my.id/pricing)
-
-## 🛠️ Development
-
-### File Structure
-
-```
-extension/
-├── Code.gs              # Main Apps Script code
-├── Sidebar.html         # Main sidebar interface
-├── Settings.html        # Settings dialog
-├── appsscript.json      # Add-on configuration
-└── README.md           # This file
-```
-
-### Key Functions
-
-- `onOpen()`: Creates add-on menu
-- `showSidebar()`: Opens the main sidebar
-- `showSettings()`: Opens settings dialog
-- `getDocumentText()`: Retrieves full document text
-- `getSelectedText()`: Retrieves selected text
-- `auditText()`: Sends text to Auditify API
-- `highlightIssues()`: Highlights issues in document
-- `insertAuditSummary()`: Inserts audit report
-
-### API Integration
-
-The add-on communicates with Auditify's REST API:
-
-```javascript
-POST /api/audit
-Headers:
-  Authorization: Bearer {API_KEY}
-  Content-Type: application/json
-Body:
-  {
-    "text": "document text",
-    "academicLevel": "SMA",
-    "focusAreas": ["logic", "fact", "sentiment"]
-  }
-```
-
-### Testing
-
-1. Make changes to the code
-2. Save the project
-3. Click "Run" → "Test as add-on"
-4. Select a test document
-5. Verify functionality
-
-## 📝 Changelog
-
-### Version 1.0.0 (2024)
-- Initial release
-- Support for Google Docs
-- Full document and selection auditing
-- Issue highlighting
-- Report insertion
-- Settings management
+---
 
 ## 🤝 Support
 
-- **Documentation**: [auditify.favianbhagaskara.my.id/docs](https://auditify.favianbhagaskara.my.id/docs)
-- **Email**: support@auditify.favianbhagaskara.my.id
-- **Issues**: Report bugs on GitHub
+- **Email**: support@auditify.edu
+- **Web**: [auditify-app-744909172024.us-central1.run.app](https://auditify-app-744909172024.us-central1.run.app)
+
+---
 
 ## 📄 License
 
 Copyright © 2024 Auditify. All rights reserved.
 
-This add-on is proprietary software. Unauthorized copying, modification, or distribution is prohibited.
+---
 
-## 🌟 Credits
-
-Developed by the Auditify team with ❤️ for academic integrity.
-
-Powered by:
-- Google Apps Script
-- Gemini AI
-- Firebase
+**Developed with ❤️ for Academic Integrity**
